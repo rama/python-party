@@ -1,6 +1,6 @@
 """
 An implementation of the silly names generator from Impractical Python projects.  
-
+Authors: Deblina Mukherjee, Jason Alderman, Keerthi Reddy, Matthew Dupree, Ramapriya Radhakrishnan
 """
 
 import random
