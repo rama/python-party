@@ -101,8 +101,9 @@ def index_block_builder(operations: list[list[int]]) -> str:
     obstacles: list[int] = []
 
     def place_obstacle(x: int) -> str:
-        insert_idx = bisect.bisect_left(obstacles, x)
-        obstacles.insert(insert_idx, x)
+        # insert_idx = bisect.bisect_left(obstacles, x)
+        # obstacles.insert(insert_idx, x)
+        bisect.insort_left(obstacles, x)
         return ""
 
     def place_block(end: int, size: int) -> str:
