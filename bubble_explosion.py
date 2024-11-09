@@ -54,7 +54,13 @@ solution(bubbles) = [
 Note: You are not expected to provide the most optimal solution, but a solution with time complexity not worse than  will fit within the execution time limit.
 """
 
+from itertools import product
 
+from utils import pretty_print_list_in_func, pretty_print_returned_list
+
+
+@pretty_print_returned_list
+@pretty_print_list_in_func
 def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
     max_row = len(bubbles)
     max_col = len(bubbles[0])
@@ -66,7 +72,6 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
         (0, -1),  # left
     ]
 
-    # find eligible
     def is_eligible(row_idx, col_idx):
         curr_color = bubbles[row_idx][col_idx]
         matching_neighbors = get_matching_neighbors(curr_color, row_idx, col_idx)
@@ -76,7 +81,6 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
         # BFS with queue
         queue = [(row_idx, col_idx)]
         while queue:
-            # print(f"{queue=}")
             r, c = queue.pop()
             bubbles[r][c] = 0
             matching_neighbors = get_matching_neighbors(col, r, c)
@@ -93,18 +97,15 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
             and bubbles[new_row][new_col] == color
         ]
 
-    for row_idx in range(max_row):
-        for col_idx in range(max_col):
-            if is_eligible(row_idx, col_idx):
-                col = bubbles[row_idx][col_idx]
-                if col != 0:
-                    flood_fill(row_idx, col_idx, col)
-
-    # flood fill eligible
+    for row_idx, col_idx in product(range(max_row), range(max_col)):
+        if is_eligible(row_idx, col_idx):
+            col = bubbles[row_idx][col_idx]
+            if col != 0:
+                flood_fill(row_idx, col_idx, col)
 
     # drop down.
     # explode eligibles along with flanking ones.
-    # [1, 0, 0, 4] -> [1, 4]  -> [0, 0, 1, 4] -> invert
+    # invert -> [1, 0, 0, 4] -> [1, 4]  -> [0, 0, 1, 4] -> invert
     def inversion_drop(bubbles: list[list[int]]) -> list[list[int]]:
         # invert, remove 0's
         inverted = [
@@ -140,10 +141,10 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
                 nonzero_i = nonzero_i - 1
         return arr
 
-    testinput = [[0, 0, 0, 0], [0, 7, 0, 1], [0, 3, 0, 4], [5, 0, 0, 0]]
+    # testinput = [[0, 0, 0, 0], [0, 7, 0, 1], [0, 3, 0, 4], [5, 0, 0, 0]]
     # print(f'{drop_from_top(bubbles)=}')
-    print(f"{pull_from_bottom(testinput)=}")
-    # print(f'{inversion_drop(bubbles)=}')
+    # print(f"{pull_from_bottom(testinput)=}")
+    # print(inversion_drop(bubbles))
     # return bubbles
     # return inversion_drop(bubbles)
     # return drop_from_top(bubbles)
@@ -152,6 +153,4 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
 
 bubbles = [[5, 1, 2, 1], [1, 1, 2, 2], [3, 1, 2, 2], [3, 3, 3, 4]]
 
-exploded_bubbles = bubble_explosion(bubbles)
-for row in exploded_bubbles:
-    print(row)
+bubble_explosion(bubbles)
