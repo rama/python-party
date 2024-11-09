@@ -38,7 +38,7 @@ Consider each operation:
 	2.	[1, 5] - Builds an obstacle at coordinate 5.
 	3.	[2, 5, 2] - Checks and produces "1" since it is possible to build a block occupying coordinates 3 and 4.
 	4.	[2, 3, 1] - Checks and produces "1" since it is possible to build a block of size 1 occupying coordinate 3.
-	5.	[2, 2, 2] - Checks and produces "0" since it is not possible to build a block occupying coordinates 1 and 2 due to the obstacle at coordinate 2.
+	5.	[2, 2, 2] - Checks and produces "1" since it is possible to build a block occupying coordinates 0 and 1.
 	6.	[2, 3, 2] - Checks and produces "0" since it is not possible to build a block occupying coordinates 1 and 2 due to the obstacle at coordinate 2.
 
 

@@ -68,21 +68,9 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
 
     # find eligible
     def is_eligible(row_idx, col_idx):
-        match_count = 0
         curr_color = bubbles[row_idx][col_idx]
-        for direction in directions:
-            new_row = row_idx + direction[0]
-            new_col = col_idx + direction[1]
-            if (
-                0 <= new_row < max_row
-                and 0 <= new_col < max_col
-                and curr_color == bubbles[new_row][new_col]
-            ):
-                match_count += 1
-
-            if match_count >= 2:
-                return True
-        return False
+        matching_neighbors = get_matching_neighbors(curr_color, row_idx, col_idx)
+        return len(matching_neighbors) >= 2
 
     def flood_fill(row_idx, col_idx, col) -> None:
         # BFS with queue
@@ -91,18 +79,19 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
             # print(f"{queue=}")
             r, c = queue.pop()
             bubbles[r][c] = 0
-            eligible_neighbors = [
-                (r + d_r, c + d_c)
-                for d_r, d_c in directions
-                if 0 <= r + d_r < max_row and 0 <= c + d_c < max_col
-            ]
-            queue.extend(
-                [
-                    pair
-                    for pair in eligible_neighbors
-                    if bubbles[pair[0]][pair[1]] == col
-                ]
-            )
+            matching_neighbors = get_matching_neighbors(col, r, c)
+            queue.extend(matching_neighbors)
+
+    def get_matching_neighbors(
+        color: int, row_idx: int, col_idx: int
+    ) -> list[tuple[int, int]]:
+        return [
+            (new_row, new_col)
+            for d_row, d_col in directions
+            if 0 <= (new_row := row_idx + d_row) < max_row
+            and 0 <= (new_col := col_idx + d_col) < max_col
+            and bubbles[new_row][new_col] == color
+        ]
 
     for row_idx in range(max_row):
         for col_idx in range(max_col):
@@ -110,12 +99,6 @@ def bubble_explosion(bubbles: list[list[int]]) -> list[list[int]]:
                 col = bubbles[row_idx][col_idx]
                 if col != 0:
                     flood_fill(row_idx, col_idx, col)
-
-                # print(f"{row_idx=} - {col_idx=}")
-
-            # explore up/down/left/right to find at least 2 matches
-
-            # flood fill 0s
 
     # flood fill eligible
 
