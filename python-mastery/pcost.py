@@ -24,5 +24,5 @@ def portfolio_cost(file_name):
 
 
 # comma after colon for comma-separated numbers!
-print(f"Total portfolio cost: ${portfolio_cost('portfolio2.dat'):,.2f}")
+print(f"Total portfolio cost: ${portfolio_cost('Data/portfolio2.dat'):,.2f}")
 # print(portfolio_cost("missing_portfolio.dat"))
