@@ -44,27 +44,21 @@ if __name__ == "__main__":
     rows = read_rides_as_string("Data/ctabus.csv")
     print("Memory Use: Current %d, Peak %d" % tracemalloc.get_traced_memory())
 """
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 4m5s 
-❯ python3 ex2_1.py - list of tuples
+tuple
 Memory Use: Current 123687918, Peak 123718536
 
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 5s 
-❯ python3 ex2_1.py - list of dictionaries
+dictionary
 Memory Use: Current 188373102, Peak 188403720
 
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 6s 
-❯ python3 ex2_1.py - list of objects
+class
 Memory Use: Current 142173182, Peak 142203800
 
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 41s 
-❯ python3 ex2_1.py - named tuple
+named tuple
 Memory Use: Current 128308806, Peak 128339424
 
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 6s 
-❯ python3 ex2_1.py - class with __slots__
+class with __slots__
 Memory Use: Current 119067902, Peak 119098520
 
-python-party/python-mastery on  main [?] via 🐍 v2.7.16 took 6s 
-❯ python3 ex2_1.py
+string
 Memory Use: Current 12361155, Peak 24727488
 """
